@@ -29,18 +29,22 @@ export default function SignInForm() {
 				password: data.password,
 			}),
 		});
-		if (resPromise.ok) router.push("/");
-		const res = await resPromise.json();
 
-		interface ErrorMessage {
-			name: string;
-			message: string;
+		if (resPromise.ok) {
+			router.push("/");
+		} else {
+			const res = await resPromise.json();
+
+			interface ErrorMessage {
+				name: string;
+				message: string;
+			}
+
+			const errorMessage = JSON.parse(res.message) as ErrorMessage;
+			setError(errorMessage.name as keyof UserFormTypes, {
+				message: errorMessage.message,
+			});
 		}
-
-		const errorMessage = JSON.parse(res.message) as ErrorMessage;
-		setError(errorMessage.name as keyof UserFormTypes, {
-			message: errorMessage.message,
-		});
 	});
 
 	const registerUsername = register("username", {

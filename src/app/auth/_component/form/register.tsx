@@ -31,19 +31,21 @@ export default function RegisterForm({ username }: RegisterFormProps) {
 			body: JSON.stringify(data),
 		});
 
-		if (resPromise.ok) router.push("/");
+		if (resPromise.ok) {
+			router.push("/");
+		} else {
+			const res = await resPromise.json();
 
-		const res = await resPromise.json();
+			interface ErrorMessage {
+				name: string;
+				message: string;
+			}
 
-		interface ErrorMessage {
-			name: string;
-			message: string;
+			const errorMessage = JSON.parse(res.message) as ErrorMessage;
+			setError(errorMessage.name as keyof UserFormTypes, {
+				message: errorMessage.message,
+			});
 		}
-
-		const errorMessage = JSON.parse(res.message) as ErrorMessage;
-		setError(errorMessage.name as keyof UserFormTypes, {
-			message: errorMessage.message,
-		});
 	});
 
 	return (
