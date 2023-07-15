@@ -17,10 +17,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children,}: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-    <body className={outfit.className}>
-    {children}
-    </body>
-    </html>
+    <main className={outfit.className}>
+      {children}
+    </main>
   )
 }

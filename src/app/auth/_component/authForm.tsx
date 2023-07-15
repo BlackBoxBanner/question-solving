@@ -4,6 +4,7 @@ import { ComponentProps, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import SignInForm from "./form/signin";
 import RegisterForm from "./form/register";
+import { useRouter } from "next/router";
 
 export interface RegisterFormProps {
 	username: string[];
@@ -17,6 +18,7 @@ interface AuthFormProps extends RegisterFormProps {
 
 export function AuthForm({ menuInit, username }: AuthFormProps) {
 	const [menu, setMenu] = useState<AuthMenu>(menuInit);
+
 	return (
 		<>
 			<div
@@ -24,10 +26,16 @@ export function AuthForm({ menuInit, username }: AuthFormProps) {
 					"border rounded divide-x border-secondary flex justify-center items-center mb-8"
 				)}
 			>
-				<Btn active={menu == "username"} onClick={() => setMenu("username")}>
+				<Btn
+					active={menu == "username" ? 1 : 0}
+					onClick={() => setMenu("username")}
+				>
 					Login
 				</Btn>
-				<Btn active={menu == "register"} onClick={() => setMenu("register")}>
+				<Btn
+					active={menu == "register" ? 1 : 0}
+					onClick={() => setMenu("register")}
+				>
 					Register
 				</Btn>
 			</div>
@@ -38,7 +46,7 @@ export function AuthForm({ menuInit, username }: AuthFormProps) {
 }
 
 interface BtnProps extends ComponentProps<"button"> {
-	active: boolean;
+	active: 0 | 1;
 }
 
 function Btn(props: BtnProps) {

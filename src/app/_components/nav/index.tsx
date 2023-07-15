@@ -1,23 +1,36 @@
-import {twMerge} from "tailwind-merge";
-import {Cinzel} from "next/font/google"
+import { twMerge } from "tailwind-merge";
+import { Cinzel } from "next/font/google";
+import { sessionHandle } from "@/utils/session";
+import { Button } from "@/app/_components/nav/loginBtn";
 
 const CinzelFont = Cinzel({
-  weight: "400",
-  subsets: ["latin", "latin-ext"],
-})
+	weight: "400",
+	subsets: ["latin", "latin-ext"],
+});
 
-export function NavBar() {
-  return (
-    <>
-      <div className={twMerge("w-full bg-amber-200 h-14 p-2 px-4 flex items-center justify-between")}>
-        <div className={twMerge("text-xl flex", CinzelFont.className)}>
-          Code Questions
-        </div>
-        {/*<div>2</div>*/}
-        <div>
-          a
-        </div>
-      </div>
-    </>
-  )
+export async function NavBar() {
+	const session = await sessionHandle();
+  
+	return (
+		<>
+			<div
+				className={twMerge(
+					"w-full h-16 p-2 px-8 flex items-center justify-between"
+				)}
+			>
+				<div
+					className={twMerge(
+						"text-2xl flex text-teritary",
+						CinzelFont.className
+					)}
+				>
+					Code Questions
+				</div>
+				<div></div>
+				<div>
+					<Button session={session} />
+				</div>
+			</div>
+		</>
+	);
 }
