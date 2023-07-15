@@ -1,7 +1,13 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
+import {Inter, Outfit} from 'next/font/google'
+import React from "react";
 
 const inter = Inter({ subsets: ['latin'] })
+
+const outfit = Outfit({
+  weight: "400",
+  subsets: ["latin"]
+})
 
 export const metadata = {
   title: 'Create Next App',
@@ -15,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={outfit.className}>{children}</body>
     </html>
   )
 }
