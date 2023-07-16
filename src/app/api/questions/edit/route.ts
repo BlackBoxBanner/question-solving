@@ -1,34 +1,23 @@
+import prisma from "@/utils/prisma";
 import { NextResponse } from "next/server";
 
-import prisma from "@/utils/prisma";
-import { compare } from "bcrypt";
-import { createAuth } from "@/utils/session";
-
-//TODO -
+export async function HEAD(request: Request) {}
 
 interface Body {
-	name: string;
-	username: string;
-	password: string;
-	confirmPassword: string;
-	discordId: string;
-	lineId: string;
-}
-
-interface PostReturn {
-	status: "ok" | "error";
-	item?: string;
-	message: string;
-	data?: any;
+	question: string;
+	id: string;
+	title: string;
 }
 
 export async function POST(request: Request) {
 	const requestHeaders = new Headers(request.headers);
+	const auth = requestHeaders.get("Authorization");
 
 	try {
 		const json = (await request.json()) as Body;
 
 		const result = await PostHandler(json);
+
 		return new NextResponse(JSON.stringify(result), {
 			status: 201,
 			headers: { "Content-Type": "application/json" },
@@ -63,7 +52,15 @@ type PostHandlerReturnType<T = any> =
 	| null;
 
 async function PostHandler(data: Body): Promise<PostHandlerReturnType<any>> {
-	// const { username, password, discordId, lineId, confirmPassword, name } = data;
+	const { question, id, title } = data;
 
-	return createAuth(data);
+	const questions = await prisma.question.update({
+		where: {
+			id,
+		},
+		data: {
+			title,
+			description: question,
+		},
+	});
 }

@@ -1,5 +1,7 @@
 import type {MDXComponents} from 'mdx/types'
 import {twMerge} from "tailwind-merge";
+import 'highlight.js/styles/github-dark.css';
+
 
 // This file allows you to provide custom React components
 // to be used in MDX files. You can import and use any

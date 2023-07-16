@@ -35,12 +35,10 @@ export default function RegisterForm({ username }: RegisterFormProps) {
 			router.push("/");
 		} else {
 			const res = await resPromise.json();
-
 			interface ErrorMessage {
 				name: string;
 				message: string;
 			}
-
 			const errorMessage = JSON.parse(res.message) as ErrorMessage;
 			setError(errorMessage.name as keyof UserFormTypes, {
 				message: errorMessage.message,

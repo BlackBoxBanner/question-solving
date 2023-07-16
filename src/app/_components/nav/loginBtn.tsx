@@ -18,7 +18,12 @@ export function Button({ session }: { session: undefined | Session }) {
 	return !session ? (
 		<LinkComponent href={"/auth?signin=signin"}>Sign in</LinkComponent>
 	) : (
-		<ButtonComponent onClick={logoutHandler}>Log Out</ButtonComponent>
+		<>
+		<div className={twMerge("flex gap-2")}>
+			<LinkComponent href={"/dashboard"}>Dashboard</LinkComponent>
+			<ButtonComponent onClick={logoutHandler}>Log Out</ButtonComponent>
+		</div>
+		</>
 	);
 }
 

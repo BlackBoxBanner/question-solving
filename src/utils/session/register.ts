@@ -1,66 +1,70 @@
-import { compare } from "bcrypt";
-import { cookies } from "next/headers";
+import {compare} from "bcrypt";
+import {cookies} from "next/headers";
 import prisma from "./../prisma";
-import { createJWT } from "./../jwt";
-import { AuthValidation } from "./authValidation";
+import {createJWT} from "./../jwt";
+import {AuthValidation} from "./authValidation";
+import {loadGetInitialProps} from "next/dist/shared/lib/utils";
+import {log} from "util";
 
 export default async function registerAuth({
-	username,
-	password,
-}: {
-	username: string;
-	password: string;
+                                             username,
+                                             password,
+                                           }: {
+  username: string;
+  password: string;
 }) {
-	const user = await prisma.user.findUnique({
-		where: {
-			username,
-		},
-		select: {
-			id: true,
-			username: true,
-			name: true,
-			password: true,
-		},
-	});
+  const user = await prisma.user.findUnique({
+    where: {
+      username,
+    },
+    select: {
+      id: true,
+      username: true,
+      name: true,
+      password: true,
+      admin: true
+    },
+  });
 
-	if (!user)
-		throw new Error(
-			JSON.stringify({ name: "username", message: "Invalid user" })
-		);
+  if (!user)
+    throw new Error(
+      JSON.stringify({name: "username", message: "Invalid user"})
+    );
 
-	if (user.password) {
-		if (!(user && (await compare(password, user.password)))) {
-			// if user doesn't exist or password doesn't match
-			throw new Error(
-				JSON.stringify({ name: "password", message: "Invalid password" })
-			);
-		}
-	}
+  // console.log({userPassword: user.password, password, check: await compare(user.password, password)});
 
-	const jwt = await createJWT({
-		id: user.id,
-		subject: "api-service",
-		payload: {
-			id: user.id,
-			username: user.username,
-			name: user.name,
-		},
-	});
+  if (user.password) {
+    if (!(user && (await compare(password, user.password)))) {
+      // if user doesn't exist or password doesn't match
+      throw new Error(
+        JSON.stringify({name: "password", message: "Invalid password"})
+      );
+    }
+  }
 
-	// Handle cookie
-	const cookieAuth = cookies().get("api-service");
+  const jwt = await createJWT({
+    id: user.id,
+    subject: "api-service",
+    payload: {
+      id: user.id,
+      username: user.username,
+      name: user.name,
+      admin: user.admin
+    },
+  });
 
-	await AuthValidation({ id: user.id, cookieAuth });
+  // Handle cookie
+  const cookieAuth = cookies().get("api-service");
 
-	await cookies().set({
-		name: "auth-service",
-		value: jwt,
-		expires: new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000),
-		path: "/",
-		priority: "high",
-	});
+  await AuthValidation({id: user.id, cookieAuth});
 
-	prisma.$disconnect();
-	
-	return user;
+  await cookies().set({
+    name: "auth-service",
+    value: jwt,
+    expires: new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000),
+    path: "/",
+    priority: "high",
+  });
+
+  return user;
 }

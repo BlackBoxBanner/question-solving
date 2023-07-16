@@ -31,7 +31,6 @@ export default async function RootLayout({
     <SessionHandler session={session}/>
     <body className={outfit.className}>
     <div className={twMerge("flex relative h-screen overflow-hidden flex-col md:flex-row")}>
-      <NavBar session={session!}/>
       <main className={twMerge("flex flex-col p-4 w-full overflow-y-auto")}>
         {children}
       </main>

@@ -14,3 +14,6 @@ const withMDX = require('@next/mdx')({
     },
 })
 module.exports = withMDX(nextConfig)
+
+const removeImports = require('next-remove-imports')();
+module.exports = removeImports({});
