@@ -1,5 +1,5 @@
 import {twMerge} from "tailwind-merge";
-import {Preview} from "@/app/(admin)/_component/mdx/preview";
+import {Preview} from "@/app/_components/code/preview";
 
 interface CodeProps {
   description: string

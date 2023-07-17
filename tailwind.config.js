@@ -17,6 +17,7 @@ module.exports = {
       error:"#ea7f7f",
     },
     extend: {
+
     },
   },
   plugins: [],

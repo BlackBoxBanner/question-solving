@@ -23,7 +23,7 @@ export default function Editor({id}: EditorProps) {
       body: JSON.stringify({question: data, title: questionTitle, id}),
     });
 
-    if (resPrommis.ok) router.push("/user");
+    if (resPrommis.ok) router.push("/dashboard");
   }
 
   return (
