@@ -36,3 +36,8 @@ model Question {
   User   User?   @relation(fields: [userId], references: [id])
   userId String?
 }
+
+// postgresql://postgres:3RSYDGoUHdcnuOec@db.rbhcmdxrioefumneyorz.supabase.co:5432/postgres
+// 3RSYDGoUHdcnuOec
+// https://rbhcmdxrioefumneyorz.supabase.co
+// rtwymw+niG2tmK76A6r1JFLzA3luKT5Zn8IrHx4/TdMmY1dgsGN+HeBNJGjyhJp514FdMx39p79E2ljfNFrYfg==
