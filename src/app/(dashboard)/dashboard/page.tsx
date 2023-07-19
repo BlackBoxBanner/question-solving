@@ -5,7 +5,6 @@ import {Metadata} from "next";
 import Link from "next/link";
 import {twMerge} from "tailwind-merge";
 import Button from "../_components/createButton";
-import {ImBin} from "react-icons/im";
 import DeleteButton from "../_components/deleteButton";
 
 export const metadata: Metadata = {

@@ -1,14 +1,10 @@
 import "../globals.css";
-import {Inter, Outfit} from "next/font/google";
+import {Outfit} from "next/font/google";
 import React from "react";
 import {Metadata} from "next";
 import {sessionHandle} from "@/utils/session";
 import {SessionHandler} from "@/app/(admin)/_component/session";
-import NavBar from "@/app/(admin)/_component/navbar";
 import {twMerge} from "tailwind-merge";
-import {Preview} from "@/app/_components/code/preview";
-
-const inter = Inter({subsets: ["latin"]});
 
 const outfit = Outfit({
   weight: "400",

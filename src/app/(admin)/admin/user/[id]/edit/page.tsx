@@ -1,4 +1,3 @@
-import {sessionHandle} from "@/utils/session";
 import {twMerge} from "tailwind-merge";
 import prisma from "@/utils/prisma";
 import {Metadata} from "next";

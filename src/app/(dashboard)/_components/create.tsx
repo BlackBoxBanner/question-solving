@@ -2,16 +2,15 @@
 
 import {useState} from "react";
 import {twMerge} from "tailwind-merge";
-import {MdEditor} from "md-editor-rt";
-import "md-editor-rt/lib/style.css";
 import {useRouter} from "next/navigation";
+import {Code} from "@/app/_components/code";
 
 export interface EditorProps {
   id: string;
 }
 
 export default function Editor({id}: EditorProps) {
-  const [data, setData] = useState<string>("");
+  const [data, setData] = useState<string | undefined>("");
   const [questionTitle, setQuestionTitle] = useState<string | undefined>();
 
   const router = useRouter();
@@ -35,18 +34,11 @@ export default function Editor({id}: EditorProps) {
           onChange={(e) => setQuestionTitle(e.target.value)}
           placeholder={"Title"}
         />
-        <MdEditor
-          modelValue={data}
-          onChange={setData}
-          theme="dark"
-          language="en-US"
-          previewTheme="github"
-          codeTheme="github"
-          showCodeRowNumber={true}
-          onSave={onSaveHandler}
-          htmlPreview={false}
-          preview={false}
-          noMermaid={true}
+        <Code
+          value={data}
+          onChange={(e) => {
+            setData(e.target.value)
+          }}
         />
         <button
           className={twMerge(

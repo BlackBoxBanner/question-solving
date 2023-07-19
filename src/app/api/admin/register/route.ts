@@ -1,5 +1,5 @@
 import {NextResponse} from "next/server";
-import {sessionHandle, registerAuth, removeAuth} from "@/utils/session";
+import {sessionHandle, removeAuth} from "@/utils/session";
 import prisma from "@/utils/prisma";
 
 export async function GET(request: Request) {

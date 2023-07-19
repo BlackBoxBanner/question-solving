@@ -1,6 +1,6 @@
 "use client";
 
-import { SubmitHandler, useForm } from "react-hook-form";
+import {  useForm } from "react-hook-form";
 import Input from "@/app/_components/input";
 import { twMerge } from "tailwind-merge";
 import { ComponentProps } from "react";

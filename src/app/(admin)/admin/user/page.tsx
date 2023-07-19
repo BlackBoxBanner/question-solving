@@ -1,7 +1,5 @@
-import {sessionHandle} from "@/utils/session";
 import {twMerge} from "tailwind-merge";
 import prisma from "@/utils/prisma";
-import Link from "next/link";
 import {Card} from "@/app/(admin)/admin/user/_components/card";
 
 export default async function Home() {

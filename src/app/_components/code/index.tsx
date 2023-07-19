@@ -1,16 +1,20 @@
+"use client";
 import {twMerge} from "tailwind-merge";
-import {Preview} from "@/app/_components/code/preview";
+import {ComponentProps} from "react";
 
-interface CodeProps {
-  description: string
+interface CodeProps extends ComponentProps<"textarea"> {
 }
 
-export function Code({description}: CodeProps) {
+export function Code({className, ...props}: CodeProps) {
+
   return (
     <>
-      <div className={twMerge("md:w-[50rem] w-full -z-10")}>
-        <Preview description={description}/>
+      <div className={twMerge("w-full rounded ")}>
+				<textarea
+          className={twMerge("bg-primary-hover md:min-h-[30rem] min-h-[25rem] p-1", className)}
+          {...props}
+        />
       </div>
     </>
-  )
+  );
 }

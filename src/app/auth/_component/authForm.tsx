@@ -4,7 +4,6 @@ import { ComponentProps, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import SignInForm from "./form/signin";
 import RegisterForm from "./form/register";
-import { useRouter } from "next/router";
 
 export interface RegisterFormProps {
 	username: string[];

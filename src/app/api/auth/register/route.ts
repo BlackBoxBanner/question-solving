@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 
-import prisma from "@/utils/prisma";
-import { compare } from "bcrypt";
 import { createAuth } from "@/utils/session";
 
 //TODO -

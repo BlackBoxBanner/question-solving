@@ -2,8 +2,6 @@ import {twMerge} from "tailwind-merge";
 import {Metadata} from "next";
 import prisma from "@/utils/prisma";
 import {Preview} from "@/app/_components/code/preview";
-import {xQuery} from "@codemirror/legacy-modes/mode/xquery";
-import {Code} from "../../../../_components/code";
 
 export const metadata: Metadata = {
   title: 'Code Questions',
@@ -29,7 +27,7 @@ export default async function Home({params, searchParams}: PageProps) {
   if (!question?.description) return <></>
   return (
     <div className={twMerge("flex items-center flex-col")}>
-      <Code description={question.description}/>
+      <Preview description={question.description}/>
     </div>
   )
 }

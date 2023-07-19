@@ -2,10 +2,9 @@
 
 import {useState} from "react";
 import {twMerge} from "tailwind-merge";
-import {MdEditor, MdCatalog, MdPreview} from "md-editor-rt";
-import "md-editor-rt/lib/style.css";
 import {useRouter} from "next/navigation";
-import {MDXRemote} from "next-mdx-remote/rsc";
+import {Code} from "@/app/_components/code";
+import {Preview} from "@/app/_components/code/preview";
 
 export interface EditorProps {
   title: string;
@@ -14,10 +13,20 @@ export interface EditorProps {
 }
 
 export default function Editor({description, title, id}: EditorProps) {
-  const [data, setData] = useState<string>(description);
-  const [questionTitle, setQuestionTitle] = useState<string>(title);
+  const [data, setData] = useState<string | undefined>(description);
+  const [questionTitle, setQuestionTitle] = useState<string | undefined>(title);
   const [view, setView] = useState(false);
   const router = useRouter();
+
+  interface AlertProps {
+    status: boolean;
+    type?: "successful" | "error";
+  }
+
+  const [alert, setAlert] = useState<AlertProps>({
+    status: false,
+    type: undefined,
+  });
 
   async function onSaveHandler() {
     const resPrommis = await fetch("/api/questions/edit", {
@@ -25,7 +34,7 @@ export default function Editor({description, title, id}: EditorProps) {
       body: JSON.stringify({question: data, id, title: questionTitle}),
     });
 
-    if (resPrommis.ok) return router.push("/user");
+    if (resPrommis.ok) return router.push("/dashboard");
   }
 
   return (
@@ -38,29 +47,12 @@ export default function Editor({description, title, id}: EditorProps) {
           placeholder={"Title"}
         />
         {!view ? (
-          <MdEditor
-            modelValue={data}
-            onChange={setData}
-            theme="dark"
-            language="en-US"
-            previewTheme="github"
-            codeTheme="github"
-            showCodeRowNumber={true}
-            onSave={onSaveHandler}
-            htmlPreview={false}
-            preview={false}
-            noMermaid={true}
-            editorId={id}
-          />
+          <>
+            <Code onChange={(e) => setData(e.target.value)} value={data}/>
+          </>
         ) : (
-          <MdPreview
-            modelValue={data}
-            theme="dark"
-            language="en-US"
-            previewTheme="github"
-            codeTheme="github"
-            showCodeRowNumber={true}
-            editorId={id}
+          <Preview
+            description={data}
           />
         )}
         <button
@@ -69,7 +61,7 @@ export default function Editor({description, title, id}: EditorProps) {
           )}
           onClick={() => setView((e) => !e)}
         >
-          View
+          {!view ? "View" : "Edit"}
         </button>
         <button
           className={twMerge(

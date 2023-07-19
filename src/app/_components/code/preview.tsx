@@ -1,30 +1,21 @@
-"use client"
+"use client";
 
-import {MdPreview} from "md-editor-rt";
-import "md-editor-rt/lib/style.css";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import "github-markdown-css"
 import {twMerge} from "tailwind-merge";
 
-
 interface PreviewProps {
-  description: string
+  description?: string;
 }
 
 export function Preview({description}: PreviewProps) {
-  return (
-    <>
-      <div className={twMerge("bg-primary-hover")}>
-        <MdPreview
-          modelValue={description}
-          theme="dark"
-          language="en-US"
-          previewTheme="github"
-          codeTheme="github"
-          style={{
-            all: "unset"
-          }}
-          className={twMerge("")}
-        />
-      </div>
-    </>
-  )
+  return <ReactMarkdown
+    /* eslint-disable-next-line react/no-children-prop */
+    children={String(description)}
+    remarkPlugins={[remarkGfm]}
+    rehypePlugins={[rehypeRaw]}
+    className={twMerge("bg-primary-hover md:min-h-[30rem] min-h-[25rem] p-1", "markdown-body")}
+  />
 }

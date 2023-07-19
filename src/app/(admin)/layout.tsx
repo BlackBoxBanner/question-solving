@@ -6,7 +6,6 @@ import {sessionHandle} from "@/utils/session";
 import {SessionHandler} from "@/app/(admin)/_component/session";
 import NavBar from "@/app/(admin)/_component/navbar";
 import {twMerge} from "tailwind-merge";
-import {Preview} from "@/app/_components/code/preview";
 
 const inter = Inter({subsets: ["latin"]});
 
