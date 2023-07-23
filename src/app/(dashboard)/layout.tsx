@@ -23,14 +23,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body
-				className={twMerge(
-					"bg-primary text-secondary h-screen flex relative",
-					outfit.className
-				)}
-			>
-				<div className={twMerge("overflow-y-auto p-8")}>{children}</div>
-			</body>
+			<body className={twMerge(outfit.className)}>{children}</body>
 		</html>
 	);
 }

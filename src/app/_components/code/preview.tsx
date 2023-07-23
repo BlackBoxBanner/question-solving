@@ -16,6 +16,9 @@ export function Preview({description}: PreviewProps) {
     children={String(description)}
     remarkPlugins={[remarkGfm]}
     rehypePlugins={[rehypeRaw]}
+    components={{
+      
+    }}
     className={twMerge("bg-primary-hover md:min-h-[30rem] min-h-[25rem] p-1", "markdown-body")}
   />
 }

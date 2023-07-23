@@ -1,7 +1,7 @@
-import {twMerge} from "tailwind-merge";
-import {Metadata} from "next";
+import { twMerge } from "tailwind-merge";
+import { Metadata } from "next";
 import prisma from "@/utils/prisma";
-import {AuthForm, AuthMenu} from "@/app/auth/_component/authForm";
+import { AuthForm, AuthMenu } from "@/app/auth/_component/authForm";
 
 export const metadata: Metadata = {
 	title: "Code Questions - Login",
@@ -36,16 +36,26 @@ export default async function Home({ params, searchParams }: PageProps) {
 	}
 
 	return (
-		<main className={twMerge("h-full flex justify-center items-center overflow-auto")}>
+		<main
+			className={twMerge(
+				"bg-primary text-secondary min-h-screen h-screen relative"
+			)}
+		>
 			<div
 				className={twMerge(
-					"md:border border-secondary rounded-xl p-4 md:w-1/3 w-full m-8 h-fit"
+					"h-full flex justify-center items-center overflow-auto"
 				)}
 			>
-				<AuthForm
-					menuInit={getMenuInit(searchParams)}
-					username={getValue({ users: user })}
-				/>
+				<div
+					className={twMerge(
+						"md:border border-secondary rounded-xl p-4 md:w-1/3 w-full m-8 h-fit"
+					)}
+				>
+					<AuthForm
+						menuInit={getMenuInit(searchParams)}
+						username={getValue({ users: user })}
+					/>
+				</div>
 			</div>
 		</main>
 	);
