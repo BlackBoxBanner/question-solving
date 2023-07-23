@@ -19,9 +19,15 @@ export default async function Home({ params, searchParams }: PageProps) {
 	const session = await sessionHandle();
 	if (!session?.data.id) return <></>;
 	return (
-		<main className={twMerge("flex min-h-screen flex-col md:px-60 gap-8")}>
-			<div>
-				<Editor id={session.data.id} />
+		<main
+			className={twMerge("bg-primary text-secondary h-screen flex relative")}
+		>
+			<div className={twMerge("overflow-y-auto p-8 w-full")}>
+				<div className={twMerge("flex min-h-screen flex-col md:px-60 gap-8")}>
+					<div>
+						<Editor id={session.data.id} />
+					</div>
+				</div>
 			</div>
 		</main>
 	);
